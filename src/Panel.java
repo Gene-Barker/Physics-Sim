@@ -99,7 +99,7 @@ public class Panel extends JPanel implements Runnable{
     }
     public void update(){
 
-        for (int i = 0; i < entities.length; i++) {entities[i].update();}
+        for (int i = 0; i < entities.length; i++) {entities[i].update(floor);}
     }
     @Override
     protected void paintComponent(Graphics g){
