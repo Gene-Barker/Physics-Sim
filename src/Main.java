@@ -1,3 +1,4 @@
+//Copyright Gene Barker 2025
 import javax.swing.JFrame;
 import java.awt.*;
 
@@ -7,6 +8,7 @@ public class Main{
 
     public static void main(String[] args){
 
+        //Makes the program us open GL
         System.setProperty("sun.java2d.opengl", "true");
 
         JFrame window = new JFrame();

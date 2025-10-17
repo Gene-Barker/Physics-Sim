@@ -9,10 +9,11 @@ public class Entity {
     float[] position;
     final float time = (1/60f);
     final float gravity = 9.81f;
+    final float density = 1000;
 
     public Entity(float massPassed, float[] passedPosition){
         mass = massPassed;
-        radius = 100;
+        radius = (int) Math.cbrt(((3 * mass)/4 * density * Math.PI));
         velocity = new float[] {0,0};
         position = passedPosition; //Index 0 is X index 1 is Y
 
@@ -29,12 +30,13 @@ public class Entity {
         position[1] += velocity[1];
         momentum[0] = velocity[0] * mass;
         momentum[1] = velocity[1] * mass;
+
     }
     public float [] getPosition(){
         return position;
     }
 
-    public void checkCollisions(){
+    public void checkCollisions(float objectPos){
 
     }
 

@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class Panel extends JPanel implements Runnable{
@@ -9,14 +11,47 @@ public class Panel extends JPanel implements Runnable{
     //List containg all the entited on screen
     Entity [] entities = new Entity[0];
 
+    Floor floor;
+
+    //Listens to the mouse
+    MouseListener mouseListener;
+
     public Panel(){
         //Setting size and visablity and such
         setSize(1920, 1080);
         setVisible(true);
-        entities = addEntity(entities, 2, new float[] {67,200});
-        entities = addEntity(entities, 2, new float[] {200,300});
-        System.out.println(entities[0]);
-        System.out.println(entities[1]);
+
+        floor = new Floor();
+
+        mouseListener = new MouseListener() {
+            //Setting up all events for the mouse being pressed
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //When the mouse is clicked, a new sphere is created
+                entities = addEntity(entities, 50, new float[] {e.getX(), e.getY()});
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        this.addMouseListener(mouseListener);
 
     }
 
@@ -74,6 +109,8 @@ public class Panel extends JPanel implements Runnable{
         Graphics2D graphics = (Graphics2D) g;
 
         for (int i = 0; i <entities.length; i++){entities[i].draw(graphics);}
+
+        floor.draw(graphics);
 
         graphics.dispose();
 
