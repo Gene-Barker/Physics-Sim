@@ -2,8 +2,7 @@ import java.awt.*;
 
 public class Entity {
 
-    int width;
-    int length;
+    int radius;
     float mass;
     float[] velocity;
     float[] momentum = new float[2];
@@ -11,17 +10,16 @@ public class Entity {
     final float time = (1/60f);
     final float gravity = 9.81f;
 
-    public Entity(int widthPassed, int lengthPassed, float massPassed){
+    public Entity(float massPassed, float[] passedPosition){
         mass = massPassed;
-        width = widthPassed;
-        length = lengthPassed;
+        radius = 100;
         velocity = new float[] {0,0};
-        position = new float[] {200,0}; //Index 0 is X index 1 is Y
+        position = passedPosition; //Index 0 is X index 1 is Y
 
     }
 
     public void draw(Graphics2D graphics){
-        graphics.fillOval((int) position[0], (int)position[1], 100,100);
+        graphics.fillOval((int) position[0], (int)position[1], radius,radius);
 
     }
     public void update(){
