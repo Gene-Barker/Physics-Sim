@@ -68,17 +68,12 @@ public class Panel extends JPanel implements Runnable{
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (gameThread != null){
-            //Used to set frames per seconds
-
-
 
             update();
 
             repaint();
 
-
-
-
+            //Used to set frames per seconds
             try {
                 double remainingTime = (nextDrawTime - System.nanoTime());
                 //I forgot a 0 here and it messed up the whole program. Don't do that again
@@ -99,7 +94,7 @@ public class Panel extends JPanel implements Runnable{
     }
     public void update(){
 
-        for (int i = 0; i < entities.length; i++) {entities[i].update(floor);}
+        for (int i = 0; i < entities.length; i++) {entities[i].update(floor, entities);}
     }
     @Override
     protected void paintComponent(Graphics g){

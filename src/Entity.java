@@ -12,7 +12,8 @@ public class Entity {
     //All of these variables are nesscessery for calculating drag
     final float gravity = 9.81f;
     final float density = 1000;
-    float frictionCoefficient = 0.47f;
+    final float frictionCoefficient = 0.47f;
+    final float restitutionCoefficient = 0.87f;
     float[] force;
     float airDensity = 0.0009f;
     float[] drag = new float[2];
@@ -31,9 +32,12 @@ public class Entity {
         graphics.fillOval((int) position[0], (int)position[1], radius,radius);
 
     }
-    public void update(Floor floor){
+    public void update(Floor floor, Entity[] entitiesList){
         //Positive is down
         //Positive is right
+        //for (int i = 0; i < entitiesList.length; i++){
+
+        //}
         force = new float[] {0,0};
         drag[0] = (float) (0.5 * airDensity * Math.pow(velocity[0], 2) * frictionCoefficient * area);
         drag[1] = (float) (0.5 * airDensity * Math.pow(velocity[1], 2) * frictionCoefficient * area);
@@ -48,7 +52,7 @@ public class Entity {
         momentum[1] = velocity[1] * mass;
 
         if (floor.checkCollisions(position, new float[] {radius,radius})){
-            momentum[1] = -momentum[1];
+            momentum[1] = -momentum[1] * restitutionCoefficient;
             velocity[1] = momentum[1]/mass;
         }
 
