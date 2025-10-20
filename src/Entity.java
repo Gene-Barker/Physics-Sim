@@ -36,7 +36,7 @@ public class Entity {
         //Positive is down
         //Positive is right
         for (int i = 0; i < entitiesList.length; i++){
-            System.out.println(checkCollisions(entitiesList[i].getPosition(), entitiesList[i].getRadius()));
+            checkCollisions(entitiesList[i].getPosition(), entitiesList[i].getRadius());
         }
         force = new float[] {0,0};
         drag[0] = (float) (0.5 * airDensity * Math.pow(velocity[0], 2) * frictionCoefficient * area);
@@ -52,9 +52,16 @@ public class Entity {
         momentum[1] = velocity[1] * mass;
 
         if (floor.checkCollisions(position, new float[] {radius,radius})){
-            momentum[1] = -momentum[1] * restitutionCoefficient;
-            velocity[1] = momentum[1]/mass;
+            if (velocity[1] > 0) {
+                momentum[1] = -momentum[1] * restitutionCoefficient;
+                velocity[1] = momentum[1] / mass;
+            }
+            if ((position[1] + radius > floor.position[1])){
+                this.position[1] = floor.position[1] - this.radius;
+                System.out.println("fhfjdfsdfs");
+            }
         }
+
 
     }
     public float [] getPosition(){
