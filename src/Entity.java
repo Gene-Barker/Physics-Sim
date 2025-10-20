@@ -35,9 +35,9 @@ public class Entity {
     public void update(Floor floor, Entity[] entitiesList){
         //Positive is down
         //Positive is right
-        //for (int i = 0; i < entitiesList.length; i++){
-
-        //}
+        for (int i = 0; i < entitiesList.length; i++){
+            System.out.println(checkCollisions(entitiesList[i].getPosition(), entitiesList[i].getRadius()));
+        }
         force = new float[] {0,0};
         drag[0] = (float) (0.5 * airDensity * Math.pow(velocity[0], 2) * frictionCoefficient * area);
         drag[1] = (float) (0.5 * airDensity * Math.pow(velocity[1], 2) * frictionCoefficient * area);
@@ -61,8 +61,26 @@ public class Entity {
         return position;
     }
 
-    public void checkCollisions(float objectPos){
+    public float getRadius(){
+        return radius;
+    }
 
+    public boolean checkCollisions(float[] objectPos, float objectRadius){
+        boolean collided = false;
+        //If the positions are the exact same we can assume that they are the same object
+        if (this.position == objectPos){
+            collided = false;
+        }
+        //|| means or
+        else if ((objectPos[0] <= (this.position[0] + this.radius)) ||  (objectPos[1] <= (this.position[1] + this.radius))) {
+            collided = true;
+        }
+        //This code is so buns
+        else if ((this.position[0] <= (objectPos[0] + objectRadius)) || (this.position[1] <= (objectPos[1] + objectRadius))) {
+            collided = true;
+        }
+
+        return collided;
     }
 
 
