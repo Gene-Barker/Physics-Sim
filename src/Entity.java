@@ -9,6 +9,7 @@ public class Entity {
     float[] position;
     final float time = (1/60f);
 
+
     //All of these variables are nesscessery for calculating drag
     final float gravity = 9.81f;
     final float density = 1000;
@@ -18,6 +19,8 @@ public class Entity {
     float airDensity = 0.0009f;
     float[] drag = new float[2];
     float area;
+
+    boolean held = false;
 
     public Entity(float massPassed, float[] passedPosition){
         mass = massPassed;
@@ -38,27 +41,36 @@ public class Entity {
         for (int i = 0; i < entitiesList.length; i++){
             checkCollisions(entitiesList[i].getPosition(), entitiesList[i].getRadius());
         }
-        force = new float[] {0,0};
-        drag[0] = (float) (0.5 * airDensity * Math.pow(velocity[0], 2) * frictionCoefficient * area);
-        drag[1] = (float) (0.5 * airDensity * Math.pow(velocity[1], 2) * frictionCoefficient * area);
-        force[1] = (gravity * mass) - drag[1];
-        if (velocity[0] != 0){
-            if (velocity[0] < 0){velocity[0] += drag[0];}
-        }
-            if (velocity[0] > 0){velocity[0] -= drag[0];}
-        velocity[1] = velocity[1] + ((force[1] / mass) * time);
-        position[1] += velocity[1];
-        momentum[0] = velocity[0] * mass;
-        momentum[1] = velocity[1] * mass;
 
-        if (floor.checkCollisions(position, new float[] {radius,radius})){
-            if (velocity[1] > 0) {
-                momentum[1] = -momentum[1] * restitutionCoefficient;
-                velocity[1] = momentum[1] / mass;
+        if (held == false) {
+
+
+            //Calculates the force applied to the entities
+            force = new float[]{0, 0};
+            drag[0] = (float) (0.5 * airDensity * Math.pow(velocity[0], 2) * frictionCoefficient * area);
+            drag[1] = (float) (0.5 * airDensity * Math.pow(velocity[1], 2) * frictionCoefficient * area);
+            force[1] = (gravity * mass) - drag[1];
+            if (velocity[0] != 0) {
+                if (velocity[0] < 0) {
+                    velocity[0] += drag[0];
+                }
             }
-            if ((position[1] + radius > floor.position[1])){
-                this.position[1] = floor.position[1] - this.radius;
-                System.out.println("fhfjdfsdfs");
+            if (velocity[0] > 0) {
+                velocity[0] -= drag[0];
+            }
+            velocity[1] = velocity[1] + ((force[1] / mass) * time);
+            position[1] += velocity[1];
+            momentum[0] = velocity[0] * mass;
+            momentum[1] = velocity[1] * mass;
+
+            if (floor.checkCollisions(position, new float[]{radius, radius})) {
+                if (velocity[1] > 0) {
+                    momentum[1] = -momentum[1] * restitutionCoefficient;
+                    velocity[1] = momentum[1] / mass;
+                }
+                if ((position[1] + radius > floor.position[1])) {
+                    this.position[1] = floor.position[1] - this.radius;
+                }
             }
         }
 
@@ -81,6 +93,7 @@ public class Entity {
         //|| means or
         else if ((objectPos[0] <= (this.position[0] + this.radius)) ||  (objectPos[1] <= (this.position[1] + this.radius))) {
             collided = true;
+
         }
         //This code is so buns
         else if ((this.position[0] <= (objectPos[0] + objectRadius)) || (this.position[1] <= (objectPos[1] + objectRadius))) {

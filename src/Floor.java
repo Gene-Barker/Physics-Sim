@@ -8,8 +8,7 @@ public class Floor {
     public Floor() {
 
     }
-    public void draw(Graphics2D graphics){
-        graphics.fillRect((int) position[0], (int)position[1], width,depth);
+    public void draw(Graphics2D graphics){graphics.fillRect((int) position[0], (int)position[1], width,depth);
     }
     public boolean checkCollisions(float[] entityPos, float [] entitySize){
         //Subroutine to check collisions with entites
