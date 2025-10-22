@@ -112,6 +112,7 @@ public class Panel extends JPanel implements Runnable{
             entities = sortingMachine.insertionSort(entities);
         }
 
+        //Detects if two entities are collided
         if (entities.length > 1) {
 
             for (int i = 0; i < entities.length; i++) {
@@ -119,7 +120,7 @@ public class Panel extends JPanel implements Runnable{
                     if (i != j) {
                         if ((entities[i].getPosition()[0] < entities[j].getPosition()[0]) && (entities[j].getPosition()[0]) < entities[i].getPosition()[0] + entities[i].getRadius()) {
                             if ((entities[i].getPosition()[1] < entities[j].getPosition()[1]) && (entities[j].getPosition()[1]) < entities[i].getPosition()[1] + entities[i].getRadius()){
-                                
+
                             }
 
                         }
