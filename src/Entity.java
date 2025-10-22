@@ -35,14 +35,11 @@ public class Entity {
         graphics.fillOval((int) position[0], (int)position[1], radius,radius);
 
     }
-    public void update(Floor floor, Entity[] entitiesList){
+    public void update(Floor floor){
         //Positive is down
         //Positive is right
-        for (int i = 0; i < entitiesList.length; i++){
-            checkCollisions(entitiesList[i].getPosition(), entitiesList[i].getRadius());
-        }
 
-        if (held == false) {
+        if (!held) {
 
 
             //Calculates the force applied to the entities
@@ -72,6 +69,9 @@ public class Entity {
                     this.position[1] = floor.position[1] - this.radius;
                 }
             }
+        }
+        else if (held) {
+
         }
 
 

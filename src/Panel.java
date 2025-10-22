@@ -4,6 +4,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
+
+//Bassiccly the main class
+//IDK couldn't get main to run the game loop tbh
 public class Panel extends JPanel implements Runnable{
     //Thread is used for the game loop
     Thread gameThread;
@@ -13,6 +16,8 @@ public class Panel extends JPanel implements Runnable{
 
     Floor floor;
 
+    Sorting sortingMachine;
+
     //Listens to the mouse
     MouseListener mouseListener;
 
@@ -20,6 +25,8 @@ public class Panel extends JPanel implements Runnable{
         //Setting size and visablity and such
         setSize(1920, 1080);
         setVisible(true);
+
+        sortingMachine = new Sorting();
 
         floor = new Floor();
 
@@ -94,8 +101,35 @@ public class Panel extends JPanel implements Runnable{
     }
     public void update(){
 
-        for (int i = 0; i < entities.length; i++) {entities[i].update(floor, entities);}
+        for (int i = 0; i < entities.length; i++) {entities[i].update(floor);}
+
+
+
+        if (entities.length > 0) {
+
+            //Have to use insertion sort because merge sort doesn't work for whatever reason
+
+            entities = sortingMachine.insertionSort(entities);
+        }
+
+        if (entities.length > 1) {
+
+            for (int i = 0; i < entities.length; i++) {
+                for (int j = 0; j < entities.length; j++) {
+                    if (i != j) {
+                        if ((entities[i].getPosition()[0] < entities[j].getPosition()[0]) && (entities[j].getPosition()[0]) < entities[i].getPosition()[0] + entities[i].getRadius()) {
+                            if ((entities[i].getPosition()[1] < entities[j].getPosition()[1]) && (entities[j].getPosition()[1]) < entities[i].getPosition()[1] + entities[i].getRadius()){
+                                
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
     }
+
     @Override
     protected void paintComponent(Graphics g){
 
@@ -126,6 +160,9 @@ public class Panel extends JPanel implements Runnable{
         newEntities[newEntities.length - 1] = new Entity(massPassed, positionPassed);
 
         //Returns the array
+
+        //newEntities = sortingMachine.mergeSort(newEntities, 0, newEntities.length - 1);
+
         return newEntities;
     }
 }
