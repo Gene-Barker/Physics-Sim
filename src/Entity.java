@@ -84,23 +84,18 @@ public class Entity {
         return radius;
     }
 
-    public boolean checkCollisions(float[] objectPos, float objectRadius){
-        boolean collided = false;
-        //If the positions are the exact same we can assume that they are the same object
-        if (this.position == objectPos){
-            collided = false;
-        }
-        //|| means or
-        else if ((objectPos[0] <= (this.position[0] + this.radius)) ||  (objectPos[1] <= (this.position[1] + this.radius))) {
-            collided = true;
+    public float [] getMomentum(){return momentum;}
 
-        }
-        //This code is so buns
-        else if ((this.position[0] <= (objectPos[0] + objectRadius)) || (this.position[1] <= (objectPos[1] + objectRadius))) {
-            collided = true;
-        }
+    //Collisions barely work right now, don't mind that
 
-        return collided;
+    public void collide(Entity otherEntity ,float[] otherObjMomentum){
+        float[] momentumTotal = {this.getMomentum()[0] + otherObjMomentum[0], this.getMomentum()[1] + otherObjMomentum[1]};
+        this.momentum[0] = momentumTotal[0] / 2;
+        this.momentum[1] = momentumTotal[1] / 2;
+
+        this.velocity[0] = momentum[0]/ mass;
+        this.velocity[1] = momentum[1]/mass;
+
     }
 
 

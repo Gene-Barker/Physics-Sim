@@ -119,8 +119,15 @@ public class Panel extends JPanel implements Runnable{
                 for (int j = 0; j < entities.length; j++) {
                     if (i != j) {
                         if ((entities[i].getPosition()[0] < entities[j].getPosition()[0]) && (entities[j].getPosition()[0]) < entities[i].getPosition()[0] + entities[i].getRadius()) {
+
                             if ((entities[i].getPosition()[1] < entities[j].getPosition()[1]) && (entities[j].getPosition()[1]) < entities[i].getPosition()[1] + entities[i].getRadius()){
 
+                                //Getting the momentum before the collision
+                                float [] entityAMomentum = entities[i].getMomentum();
+                                float [] entityBMomentum = entities[j].getMomentum();
+
+                                entities[i].collide(entities[j], entityBMomentum);
+                                entities[j].collide(entities[i], entityAMomentum);
                             }
 
                         }
