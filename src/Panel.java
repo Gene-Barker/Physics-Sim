@@ -131,6 +131,8 @@ public class Panel extends JPanel implements Runnable{
                             }
 
                         }
+                        else{break;}
+
                     }
                 }
             }

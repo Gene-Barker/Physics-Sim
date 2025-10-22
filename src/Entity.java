@@ -90,8 +90,15 @@ public class Entity {
 
     public void collide(Entity otherEntity ,float[] otherObjMomentum){
         float[] momentumTotal = {this.getMomentum()[0] + otherObjMomentum[0], this.getMomentum()[1] + otherObjMomentum[1]};
-        this.momentum[0] = momentumTotal[0] / 2;
-        this.momentum[1] = momentumTotal[1] / 2;
+        this.momentum[0] = (momentumTotal[0] / 2) * restitutionCoefficient;
+        this.momentum[1] = (momentumTotal[1] / 2) * restitutionCoefficient;
+
+
+        //If the other object is pushing from above, move this object down
+        if ((otherEntity.getPosition()[1] + otherEntity.getRadius() * 2) < this.position[1]){this.position[1] += this.getRadius();}
+        else{this.position[1] -= this.getRadius();}
+
+
 
         this.velocity[0] = momentum[0]/ mass;
         this.velocity[1] = momentum[1]/mass;
