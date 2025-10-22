@@ -1,6 +1,6 @@
 Basic physics simulation
 
-> Note: This project is still being worked on and is very incomplete/buggy
+> Note: This project is still being worked on and is very incomplete/buggy. Please be paitent
 
 # Dependencies
 #### None
