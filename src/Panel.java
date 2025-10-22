@@ -10,6 +10,14 @@ import java.awt.event.MouseListener;
 public class Panel extends JPanel implements Runnable{
     //Thread is used for the game loop
     Thread gameThread;
+
+
+    //True if mouse is being held down
+    boolean mouseHeld = false;
+
+    //Mass of sphere which is being created
+    float mass;
+
     int fps = 60;
     //List containg all the entited on screen
     Entity [] entities = new Entity[0];
@@ -35,16 +43,20 @@ public class Panel extends JPanel implements Runnable{
             @Override
             public void mouseClicked(MouseEvent e) {
                 //When the mouse is clicked, a new sphere is created
-                entities = addEntity(entities, 50, new float[] {e.getX(), e.getY()});
+                //entities = addEntity(entities, 50, new float[] {e.getX(), e.getY()});
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-
+                mass = 0;
+                mouseHeld = true;
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                entities = addEntity(entities, (int) mass,new float[] {e.getX(), e.getY()});
+                mass = 0;
+                mouseHeld = false;
 
             }
 
@@ -101,6 +113,8 @@ public class Panel extends JPanel implements Runnable{
     }
     public void update(){
 
+        if (mouseHeld){mass += ((float) 50 /60);}
+
         for (int i = 0; i < entities.length; i++) {entities[i].update(floor);}
 
 
@@ -113,30 +127,35 @@ public class Panel extends JPanel implements Runnable{
         }
 
         //Detects if two entities are collided
-        if (entities.length > 1) {
 
-            for (int i = 0; i < entities.length; i++) {
-                for (int j = 0; j < entities.length; j++) {
-                    if (i != j) {
-                        if ((entities[i].getPosition()[0] < entities[j].getPosition()[0]) && (entities[j].getPosition()[0]) < entities[i].getPosition()[0] + entities[i].getRadius()) {
 
-                            if ((entities[i].getPosition()[1] < entities[j].getPosition()[1]) && (entities[j].getPosition()[1]) < entities[i].getPosition()[1] + entities[i].getRadius()){
+        for (int i = 0; i < entities.length; i++) {
+            for (int j = 0; j < entities.length; j++) {
+                if (i != j) {
+                //Not a very nice if statments, but it works
+                    if ((entities[i].getPosition()[0] <= entities[j].getPosition()[0]) &&(entities[j].getPosition()[0] - entities[i].getPosition()[0]) < (entities[i].getRadius() * 2) ) {
 
-                                //Getting the momentum before the collision
-                                float [] entityAMomentum = entities[i].getMomentum();
-                                float [] entityBMomentum = entities[j].getMomentum();
 
-                                entities[i].collide(entities[j], entityBMomentum);
-                                entities[j].collide(entities[i], entityAMomentum);
-                            }
+                        if ((entities[i].getPosition()[1] <= entities[j].getPosition()[1]) && (entities[j].getPosition()[1] - entities[i].getPosition()[1]) < (entities[i].getRadius() * 2) ){
 
+
+
+                            //Getting the momentum before the collision
+                            float [] entityAMomentum = entities[i].getMomentum();
+                            float [] entityBMomentum = entities[j].getMomentum();
+
+                            entities[i].collide(entities[j], entityBMomentum);
+                            entities[j].collide(entities[i], entityAMomentum);
                         }
-                        else{break;}
 
                     }
-                }
+
+
+
+               }
             }
         }
+
 
     }
 

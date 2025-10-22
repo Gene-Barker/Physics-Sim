@@ -97,8 +97,8 @@ public class Entity {
 
 
         //If the other object is pushing from above, move this object down
-        if ((otherEntity.getPosition()[1] + otherEntity.getRadius() * 2) < this.position[1]){this.position[1] += this.getRadius();}
-        else{this.position[1] -= this.getRadius();}
+        if ((otherEntity.getPosition()[1] + otherEntity.getRadius()) < this.position[1]){this.position[1] += this.getRadius();}
+        //else{this.position[1] -= this.getRadius();}
 
 
 
