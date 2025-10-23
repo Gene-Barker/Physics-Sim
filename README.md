@@ -3,7 +3,7 @@ Basic physics simulation
 > Note: This project is still being worked on and is very incomplete/buggy. Please be paitent
 
 # Dependencies
-#### Any JDK, such as openJDK
+#### Any JDK, such as openjdk
 
 # Installation
 ```text
