@@ -8,7 +8,7 @@ Basic physics simulation
 # Installation
 ```text
 1. git clone https://github.com/Gene-Barker/Physics-Sim
-3. cd Physics\ Engine
-2. chmod +x PhysicsSim.sh
-3. ./PhysicsSim.sh
+2. cd Physics\ Engine
+3. chmod +x PhysicsSim.sh
+4. ./PhysicsSim.sh
 ```
