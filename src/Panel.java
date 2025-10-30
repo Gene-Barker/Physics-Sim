@@ -48,8 +48,28 @@ public class Panel extends JPanel implements Runnable{
 
             @Override
             public void mousePressed(MouseEvent e) {
-                mass = 0;
-                mouseHeld = true;
+                //Bool to keep track of if the mouse is over an entity
+                boolean mouseOverEntity = false;
+                //Checks if the mouse is over any of the entities
+                for (int i = 0; i < entities.length; i++){
+                    //Another big if statement just to say "Is the mouse over the entity?"
+                    if ((entities[i].getPosition()[0] <= e.getX()) && (entities[i].getPosition()[0] + entities[i].getRadius() >= e.getX())) {
+                        //Doing it in two if statements to make it a bit more readable
+
+                        if ((entities[i].getPosition()[1] <= e.getY()) && (entities[i].getPosition()[1] + entities[i].getRadius() >= e.getY())){
+
+                            mouseOverEntity = true;
+
+                            entities[i].setHeld();
+
+                        }
+                    }
+
+                }
+                if (!mouseOverEntity){
+                    mass = 0;
+                    mouseHeld = true;
+                }
             }
 
             @Override

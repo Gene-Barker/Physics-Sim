@@ -40,6 +40,7 @@ public class Entity {
     public void update(Floor floor){
         //Positive is down
         //Positive is right
+        System.out.println(held);
 
         if (!held) {
 
@@ -78,6 +79,10 @@ public class Entity {
 
 
     }
+
+    //If the entity is being held, the held bool is set to true
+    public void setHeld(){held = true;}
+
     public float [] getPosition(){
         return position;
     }
@@ -97,7 +102,7 @@ public class Entity {
 
 
         //If the other object is pushing from above, move this object down
-        if ((otherEntity.getPosition()[1] + otherEntity.getRadius()) < this.position[1]){this.position[1] += this.getRadius();}
+        //if ((otherEntity.getPosition()[1] + otherEntity.getRadius()) < this.position[1]){this.position[1] += this.getRadius();}
         //else{this.position[1] -= this.getRadius();}
 
 
