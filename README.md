@@ -5,13 +5,14 @@ Basic physics simulation
 > Note: Currently only works on linux, I may make it windows compatible in the future
 
 # Dependencies
-#### None
+#### Any JDK, such as openjdk
 
 # Installation
 ```text
 1. git clone https://github.com/Gene-Barker/Physics-Sim
-2. chmod +x PhysicsSim.sh
-3. ./PhysicsSim.sh
+2. cd Physics\ Engine
+3. chmod +x PhysicsSim.sh
+4. ./PhysicsSim.sh
 ```
 
 
