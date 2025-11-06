@@ -37,10 +37,9 @@ public class Entity {
         graphics.fillOval((int) position[0], (int)position[1], radius,radius);
 
     }
-    public void update(Floor floor){
+    public void update(Floor floor, float[] mousePos){
         //Positive is down
         //Positive is right
-        System.out.println(held);
 
         if (!held) {
 
@@ -74,14 +73,15 @@ public class Entity {
             }
         }
         else if (held) {
-
+            position[0] = mousePos[0];
+            position[1] = mousePos[1];
         }
 
 
     }
 
-    //If the entity is being held, the held bool is set to true
-    public void setHeld(){held = true;}
+    //If the entity is being held, the held bool is set to true and vice versa
+    public void setHeld(boolean isHeld){held = isHeld;}
 
     public float [] getPosition(){
         return position;

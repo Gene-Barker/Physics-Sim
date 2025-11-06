@@ -29,6 +29,8 @@ public class Panel extends JPanel implements Runnable{
     //Listens to the mouse
     MouseListener mouseListener;
 
+    boolean mouseOverEntity = false;
+
     public Panel(){
         //Setting size and visablity and such
         setSize(1920, 1080);
@@ -49,7 +51,7 @@ public class Panel extends JPanel implements Runnable{
             @Override
             public void mousePressed(MouseEvent e) {
                 //Bool to keep track of if the mouse is over an entity
-                boolean mouseOverEntity = false;
+                mouseOverEntity = false;
                 //Checks if the mouse is over any of the entities
                 for (int i = 0; i < entities.length; i++){
                     //Another big if statement just to say "Is the mouse over the entity?"
@@ -60,7 +62,7 @@ public class Panel extends JPanel implements Runnable{
 
                             mouseOverEntity = true;
 
-                            entities[i].setHeld();
+                            entities[i].setHeld(true);
 
                         }
                     }
@@ -74,6 +76,17 @@ public class Panel extends JPanel implements Runnable{
 
             @Override
             public void mouseReleased(MouseEvent e) {
+
+                if (mouseOverEntity){
+                    //For loop to check which object is being held
+
+                    for (int i = 0; i < entities.length; i++){
+                        if (entities[i].getPosition()[0] == e.getX() && entities[i].getPosition()[1] == e.getY()){
+                            entities[i].setHeld(false);
+                        }
+                    }
+                }
+
                 entities = addEntity(entities, (int) mass,new float[] {e.getX(), e.getY()});
                 mass = 0;
                 mouseHeld = false;
@@ -135,8 +148,18 @@ public class Panel extends JPanel implements Runnable{
 
         if (mouseHeld){mass += ((float) 50 /60);}
 
-        for (int i = 0; i < entities.length; i++) {entities[i].update(floor);}
+        try {
 
+            //Try catch here means that the game pauses when the mouse is outside the screen
+            //Feature not a bug
+
+            float[] mousePos = {(float) getMousePosition().x, (float) getMousePosition().y};
+
+            for (int i = 0; i < entities.length; i++) {
+                entities[i].update(floor, mousePos);
+            }
+        }
+        catch (Exception e){}
 
 
         if (entities.length > 0) {
