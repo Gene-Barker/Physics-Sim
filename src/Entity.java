@@ -9,6 +9,8 @@ public class Entity {
     float[] velocity;
     float[] momentum = new float[2];
     float[] position;
+    //Used when the object is held to calculate velocity and momentum
+    float[] previousPos;
     final float time = (1/60f);
 
 
@@ -17,6 +19,7 @@ public class Entity {
     final float density = 1000;
     final float frictionCoefficient = 0.47f;
     final float restitutionCoefficient = 0.87f;
+    final int fps = 60;
     float[] force;
     float airDensity = 0.0009f;
     float[] drag = new float[2];
@@ -72,9 +75,27 @@ public class Entity {
                 }
             }
         }
-        else if (held) {
+        else{
             position[0] = mousePos[0];
             position[1] = mousePos[1];
+
+            try{
+                velocity[0] = -(position[0] - previousPos[0]) / (1000/fps);
+                velocity[1] = (position[1] - previousPos[1]) / (1000/fps);
+                momentum[0] = velocity[0] * mass;
+                momentum[1] = velocity[1] * mass;
+            }
+            catch (Exception e){
+
+                previousPos = new float[2];
+
+                previousPos[0] = position[0];
+                previousPos[1] = position[1];
+            }
+
+
+
+
         }
 
 
