@@ -1,7 +1,6 @@
-//Copyright Gene Barker 2025
+//Copyright Gene Barker 2026
 import javax.swing.JFrame;
 import java.awt.*;
-
 
 
 public class Main{
